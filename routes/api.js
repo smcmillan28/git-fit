@@ -23,7 +23,8 @@ router.post("/api/workouts", ({ body }, res) => {
 // });
 
 router.get("/api/workouts/range", (req, res) => {
-    Workout.find({ day: { $gte: Date.now - 8, $lte: Date.now - 1 } })
+    Workout.find({})
+        .populate("exercises")
         .sort({ date: -1 })
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -35,6 +36,7 @@ router.get("/api/workouts/range", (req, res) => {
 
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
+        // .populate("exercises")
         .sort({ date: -1 })
         .then(dbWorkout => {
             res.json(dbWorkout);
